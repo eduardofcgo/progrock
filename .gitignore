@@ -1,0 +1,5 @@
+**/__pycache__/
+**/.cache
+data/progrock.db
+data/spotify.db
+serve/serve

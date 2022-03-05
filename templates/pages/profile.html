@@ -1,0 +1,44 @@
+{{define "title"}}
+    My Profile
+{{end}}
+{{define "content"}}
+    <div id="content">
+        <form id="account-details">
+            <div id="user-state-message">Loading...</div>
+            <input disabled id="account-email" type="email" name="email" placeholder="Your email" size="23">
+            <div class="submit-feedback-message">
+                <input id="account-signout" type="submit" value="Signout" style="display: none;">
+                <input id="account-save" disabled type="submit" value="Save">
+                <div id="account-details-submit-feedback"></div>
+            </div>
+        </form>
+        <div class="sectioned">
+            <section>
+                <div class="header">
+                    Your bookmarked artists
+                    <div class="subheader">Have you listenned to them yet?</div>
+                </div>
+                <div id="bookmarks" class="body">
+                    
+                </div>
+            </section>
+            <section>
+                <div class="header">
+                    Your favorites
+                    <div class="subheader">Based on your tastes, we have found other artists you might like</div>
+                </div>
+                <div class="body">
+                    
+                    
+                </div>
+            </section>
+        </div>
+    </div>
+{{end}}
+{{define "subheader"}}{{end}}
+{{define "scripts"}}
+    <script src="/static/script/script.js"></script>
+    <script src="/static/script/ui/profileForm.js"></script>
+    <script src="/static/script/ui/profileBookmarks.js"></script>
+{{end}}
+{{template "layout" .}}

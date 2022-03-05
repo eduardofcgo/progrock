@@ -1,0 +1,20 @@
+{
+  "address": ":8080",
+  "databasePath": "../data/progrock.db",
+  "signInRedirectUrl": "http://localhost:8080/signin",
+  "release": "progrock@dev",
+  "googleAnalytics": false,
+  "sentry": false,
+  "sentryDsn": "https://8130a18f581346abbc8111b126b0c4a1@o193183.ingest.sentry.io/6228509",
+  "hotjar": false,
+  "firebase": {
+    "apiKey": "AIzaSyBbS5uGDyuz8CIGGPHcSS09MTKEgCTJAyc",
+    "authDomain": "prog-dae3f.firebaseapp.com",
+    "databaseURL": "https://prog-dae3f.firebaseio.com",
+    "projectId": "prog-dae3f",
+    "storageBucket": "prog-dae3f.appspot.com",
+    "messagingSenderId": "483947024255",
+    "appId": "1:483947024255:web:26a34197090932d921544a",
+    "measurementId": "G-SEJPBK8ZK5"
+  }
+}

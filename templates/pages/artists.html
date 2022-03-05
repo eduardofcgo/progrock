@@ -1,0 +1,61 @@
+{{define "title"}}
+    {{.Data.Artist.Name}} Similar Artists
+{{end}}
+{{define "artist_menu"}}
+    <div id="artist-header-menu">
+        <div class="artist-header-menu-item">Artists</div>
+        <div class="artist-header-menu-item">
+            <a href="/albums?id={{.Data.Artist.Id}}">Albums</a>
+        </div>
+    </div>
+{{end}}
+{{define "content"}}
+    <div id="content">
+        {{template "artist_header" .}}
+        <div id="recommendations-tab">
+            {{if eq (len .Data.Recommendations) 0}}
+                <div id="recommendations" class="artist-recommendations">
+                    {{template "suggest_box" .}}
+                </div>
+            {{else}}
+                <div id="recommendations-message">We have found lesser known artists inspired by {{.Data.Artist.Name}}</div>
+                <div id="recommendations" class="artist-recommendations">
+                    {{range .Data.Recommendations}}
+                        <div class="recommendation recommendation-artist-{{.Id}}">
+                            <div class="recommendation-feedback">
+                                <div class="feedback-input" data-artist="{{.Id}}" data-recommendation-artist="{{$.Data.Artist.Id}}" style="visibility: hidden;">
+                                    <span class="icon feedback-icon feedback-positive-icon"></span>
+                                    <span class="icon feedback-icon feedback-negative-icon"></span>
+                                </div>
+                                {{if not .ImageId.Valid}}
+                                    <div class="recommendation-image image-placeholder"></div>
+                                {{else}}
+                                    <img class="recommendation-image" loading="lazy" src="/image?id={{.ImageId.Int64}}" />
+                                {{end}}
+                                <div class="recommendation-label">
+                                    <a class="recommendation-artist-name" href="/artists?id={{.Id}}">{{.Name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {{end}}
+                    {{template "suggestions_feedback" .}}
+                </div>
+            {{end}}
+        </div>
+    </div>
+{{end}}
+{{define "subheader"}}
+    {{template "shortcuts" .}}
+{{end}}
+{{define "shortcuts_content"}}
+    {{template "search_form"}}
+{{end}}
+{{define "scripts"}}
+    <script src="/static/script/script.js"></script>
+    <script src="/static/script/ui/artistMenu.js"></script>
+    <script src="/static/script/ui/topTracksPlayer.js"></script>
+    <script src="/static/script/ui/feedbackMenu.js"></script>
+    <script src="/static/script/ui/recommendations.js"></script>
+    <script src="/static/script/ui/recommendationsFeedback.js"></script>
+{{end}}
+{{template "layout" .}}

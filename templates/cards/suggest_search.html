@@ -1,0 +1,19 @@
+<div>
+    {{range .Data.Artists}}
+    <div class="search-result suggest-search-result">
+        <div class="artist">
+            {{if not .ImageId.Valid}}
+                <div class="artist-image image-placeholder"></div>
+            {{else}}
+                <img class="artist-image" src="/image?id={{.ImageId.Int64}}"/>
+            {{end}}
+                <div class="artist-contents">
+                    <div class="artist-details">
+                        <div class="artist-name"><a href="/artists?id={{.Id}}" target="_blank">{{.Name}}</a></div>
+                    </div>
+                    <button class="artist-suggest" data-artist="{{.Id}}">Suggest</button>
+                </div>
+        </div>
+    </div>
+    {{end}}
+</div>

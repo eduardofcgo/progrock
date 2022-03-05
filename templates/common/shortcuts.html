@@ -1,0 +1,19 @@
+{{define "shortcuts"}}
+    {{$artistsBaseUrl := "/artists?id="}}
+    <div id="shortcuts">
+        <div>Find new music similar to</div>
+        <div id="shortcut-artists">
+            <a href="{{$artistsBaseUrl}}191">King Crimson</a>
+            <a href="{{$artistsBaseUrl}}1">Genesis</a>
+            <a href="{{$artistsBaseUrl}}105">Yes</a>
+            <a href="{{$artistsBaseUrl}}603">Renaissance</a>
+            <a href="{{$artistsBaseUrl}}50">Camel</a>
+            <a href="{{$artistsBaseUrl}}609">Rush</a>
+            <a href="{{$artistsBaseUrl}}364">Pink Floyd</a>
+            <a href="{{$artistsBaseUrl}}118">Gentle Giant</a>
+            <a href="{{$artistsBaseUrl}}613">Caravan</a>
+            <a href="{{$artistsBaseUrl}}289">Premiata Forneria Marconi</a>
+        </div>
+        {{template "shortcuts_content" .}}
+    </div>
+{{end}}

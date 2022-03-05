@@ -1,0 +1,70 @@
+{{define "artist_header"}}
+    {{$artistBaseUrl := "/artists?id="}}
+    {{$imageBaseUrl := "/image?id="}}
+	<div id="artist-header" data-artist="{{.Data.Artist.Id}}">
+    	<div class="artist" style="background-image:
+            linear-gradient(to bottom, rgba(52,0,60,0.9) 0%, rgba(52,0,60,0.9) 100%),
+            url({{$imageBaseUrl}}{{if .Data.Artist.ImageId.Valid}}{{.Data.Artist.ImageId.Int64}}{{else}}14355{{end}});">
+            {{if not .Data.Artist.ImageId.Valid}}
+                <div id="artist-save-menu">
+                    <div id="artist-save-menu-buttons-loading" style="visibility: hidden;">
+                        <div class="artist-save-menu-buttons" id="artist-save-menu-buttons-no-image" data-artist="{{.Data.Artist.Id}}">
+                            <span class="favorite-artist icon favorite-icon"></span>
+                            <span class="bookmark-artist icon bookmark-icon"></span>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <div id="artist-save-menu">
+                    <div id="artist-save-menu-buttons-loading" style="visibility: hidden;">
+                        <div class="artist-save-menu-buttons" id="artist-save-menu-buttons" data-artist="{{.Data.Artist.Id}}">
+                            <span class="favorite-artist icon favorite-icon"></span>
+                            <span class="bookmark-artist icon bookmark-icon"></span>
+                        </div>
+                    </div>
+                    <img class="artist-image" src="{{$imageBaseUrl}}{{.Data.Artist.ImageId.Int64}}"/>
+                </div>
+            {{end}}
+            <div id="artist-header-contents">
+                <div class="artist-header-contents-row">
+                    <div class="artist-details">
+                        <div class="artist-name">{{.Data.Artist.Name}}</div>
+                        <div class="artist-genre">{{.Data.Artist.GenreName}}</div>
+                        <div class="artist-country light-text">{{.Data.Artist.CountryName}}</div>
+                    </div>
+                    <div id="artist-links" class="artist-header-contents-right">
+                        <a class="external-link" href="http://www.progarchives.com/artist.asp?id={{.Data.Artist.Id}}" target="_blank">Progarchives.com</a>
+                        {{if .Data.SpotifyArtist}}
+                            <a class="external-link" href="https://open.spotify.com/artist/{{.Data.SpotifyArtist.Id}}" target="_blank">Spotify</a>
+                        {{end}}
+                    </div>
+                </div>
+                <div class="artist-header-contents-row">
+                    <div id="top-tracks">
+                        {{if .Data.SpotifyArtist}}
+                            <div id="top-tracks-header">
+                                <div class="top-tracks-title light-text">Preview top tracks</div>
+                                <img src="/static/volume.svg" />
+                                <div id="track-volume-control">
+                                    <input id="track-volume-slider" type="range" min="1" max="100" value="70">
+                                </div>
+                            </div>
+                            <div class="artist-tracks">
+                                {{range .Data.SpotifyArtist.TopTracks}}
+                                    <div class="artist-track" id="{{.Id}}">
+                                        <div class="artist-track-controls">
+                                            <div class="artist-track-control artist-track-control-paused"></div>
+                                        </div>
+                                        <img src="{{.AlbumImageUrl}}" class="artist-track-image"/>
+                                        <audio class="artist-track-player" src="{{.PreviewUrl}}" preload="none"></audio>
+                                    </div>
+                                {{end}}
+                            </div>
+                        {{end}}
+                    </div>
+                </div>
+                {{template "artist_menu" .}}
+            </div>
+        </div>
+	</div>
+{{end}}

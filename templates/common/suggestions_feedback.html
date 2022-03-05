@@ -1,0 +1,24 @@
+{{define "suggestions_feedback"}}
+    <div id="suggest-box">
+        <div id="suggest-box-menu">
+            <div id="suggest-box-menu-text">
+                Are these recommendations accurate?
+            </div>
+            <div id="suggest-box-menu-butttons">
+                <div id="feedback-positive" class="recommendations-feedback button">All perfect!</div>
+                <div id="feedback-neutral" class="recommendations-feedback button">Some are good</div>
+                <div id="feedback-negative" class="recommendations-feedback button">Most are wrong</div>
+            </div>
+        </div>
+        <div id="suggest-box-step2" style="display: none;">
+            <div id="suggest-box-menu">
+                <div id="suggest-box-menu-text">
+                    Thank you! Do you have better recommendations?
+                </div>
+                <div id="suggest-box-menu-butttons">
+                    <a href="/suggest?id={{.Data.Artist.Id}}">Suggest yours</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{end}}

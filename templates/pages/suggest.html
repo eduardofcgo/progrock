@@ -1,0 +1,44 @@
+{{define "title"}}
+    Suggest - {{.Data.Name}}
+{{end}}
+{{define "content"}}
+    <div id="content">
+        <div class="header">Improve recommendations for <a href="/artists?id={{.Data.Id}}">{{.Data.Name}}</a></div>
+        <div class="sectioned">
+            <section>
+                <div class="header">
+                    What other people have suggested
+                    <div class="subheader">Do you agree?</div>
+                </div>
+                <div class="body">
+                    
+                    
+                </div>
+            </section>
+            <section>
+                <div class="header">
+                    Suggest your own
+                    <div class="subheader">Search for an artist</div>
+                </div>
+                <div class="body">
+                    <div id="user-suggested">
+                        
+                    </div>
+                    <form id="suggest-search-form" data-artist="{{.Data.Id}}">
+                        <input id="suggest-search-query" type="text" name="query" placeholder="Artist name">
+                        <input id="suggest-search" type="submit" value="Search">
+                    </form>
+                    <div id="suggest-search-results">
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{{end}}
+{{define "subheader"}}{{end}}
+{{define "scripts"}}
+    <script src="/static/script/script.js"></script>
+    <script src="/static/script/ui/suggestArtists.js"></script>
+{{end}}
+{{template "layout" .}}

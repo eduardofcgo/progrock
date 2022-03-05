@@ -1,0 +1,13 @@
+---
+version: "3.3"
+services:
+  progrock:
+    build: ./
+    container_name: progrock
+    environment:
+      - config=/config/dev.json
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config:/config
+    restart: unless-stopped
