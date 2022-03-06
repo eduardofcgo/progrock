@@ -37,6 +37,38 @@ func (app *App) BookmarkCardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (app *App) FavoriteCardHandler(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	formArtistId := r.FormValue("id")
+	artistId, err := strconv.Atoi(formArtistId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	defer r.Body.Close()
+
+	artist, err := app.Database.GetArtist(artistId)
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		panic(err)
+	} else if artist == nil {
+		http.NotFound(w, r)
+	} else {
+		err = app.CardTemplates.Execute(w, "favorite.html", &artist)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			panic(err)
+		}
+	}
+}
+
 func (app *App) SuggestSearchCardHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {

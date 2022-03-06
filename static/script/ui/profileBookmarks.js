@@ -5,41 +5,14 @@
     return fetchOk(fetchUrl).then(res => res.text())
   }
 
-  function setUpBookmarkMenu(node, favoriteArtists, artistId) {
-    const favoriteIcon = node.querySelector('.favorite-artist')
+  function fetchFavoriteCard(artistId) {
+    const fetchUrl = '/card/favorite?id=' + artistId
+
+    return fetchOk(fetchUrl).then(res => res.text())
+  }
+
+  function setUpBookmarkMenu(node, artistId) {
     const unbookmarkIcon = node.querySelector('.bookmark-artist')
-
-    const isFavorite = () => favoriteArtists.includes(artistId)
-
-    const markFavorite = () => {
-      favoriteIcon.classList.remove('favorite-icon')
-      favoriteIcon.classList.add('favorite-icon-filled')
-    }
-
-    const markNotFavorite = () => {
-      favoriteIcon.classList.remove('favorite-icon-filled')
-      favoriteIcon.classList.add('favorite-icon')
-    }
-
-    if (isFavorite()) {
-      markFavorite()
-      favoriteIcon.style.visibility = 'unset'
-    }
-
-    favoriteIcon.onclick = function () {
-      if (isFavorite())
-        app.unfavoriteArtist(artistId).then(() => {
-          markNotFavorite()
-
-          favoriteArtists.pop(artistId)
-        })
-      else
-        app.favoriteArtist(artistId).then(() => {
-          markFavorite()
-
-          favoriteArtists.push(artistId)
-        })
-    }
 
     const removeBookmarkNode = () => {
       setTimeout(() => {
@@ -62,17 +35,41 @@
     }
   }
 
-  function populateBookmarks(savedArtists) {
+  function setUpFavoriteMenu(node, artistId) {
+    const unfavoriteIcon = node.querySelector('.favorite-artist')
+
+    const removeFavoriteNode = () => {
+      setTimeout(() => {
+        node.parentNode.removeChild(node)
+      }, 500)
+    }
+
+    unfavoriteIcon.onclick = function () {
+      unfavoriteIcon.classList.remove('favorite-icon-filled')
+      unfavoriteIcon.classList.add('favorite-icon')
+
+      app
+        .unfavoriteArtist(artistId)
+        .then(removeFavoriteNode)
+        .catch(err => {
+          console.error(err)
+
+          alert('Unexpected error')
+        })
+    }
+  }
+
+  function populateBookmarks(bookmarks) {
     bookmarksNode.innerHTML = null
 
-    savedArtists.bookmarks.forEach(artistId => {
+    bookmarks.forEach(artistId => {
       fetchBookmarkCard(artistId)
         .then(bookmarkHTML => {
           const bookmarkNode = document.createElement('div')
           bookmarkNode.classList.add('recommendation')
           bookmarkNode.innerHTML = bookmarkHTML
 
-          setUpBookmarkMenu(bookmarkNode, savedArtists.favorites, artistId)
+          setUpBookmarkMenu(bookmarkNode, artistId)
 
           bookmarksNode.appendChild(bookmarkNode)
         })
@@ -82,12 +79,30 @@
     })
   }
 
+  function populateFavorites(favorites) {
+    favoritesNode.innerHTML = null
+
+    favorites.forEach(artistId => {
+      fetchFavoriteCard(artistId).then(favoriteHTML => {
+        const favoriteNode = document.createElement('div')
+        favoriteNode.classList.add('recommendation')
+        favoriteNode.innerHTML = favoriteHTML
+
+        setUpFavoriteMenu(favoriteNode, artistId)
+
+        favoritesNode.appendChild(favoriteNode)
+      })
+    })
+  }
+
   const bookmarksNode = document.getElementById('bookmarks')
+  const favoritesNode = document.getElementById('favorites')
 
   const app = await requireApp()
   await app.accountReady()
 
-  const savedArtists = await app.getUserSavedArtists()
+  const { bookmarks, favorites } = await app.getUserSavedArtists()
 
-  populateBookmarks(savedArtists)
+  populateBookmarks(bookmarks)
+  populateFavorites(favorites)
 })()

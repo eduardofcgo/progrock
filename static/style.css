@@ -538,7 +538,8 @@ form .submit-feedback-message {
   color: #ff9e10;
 }
 #recommendations,
-#bookmarks {
+#bookmarks,
+#favorites {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

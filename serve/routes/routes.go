@@ -26,6 +26,7 @@ func (app *App) SetUpRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/search", app.SearchHandler)
 
 	mux.HandleFunc("/card/bookmark", app.BookmarkCardHandler)
+	mux.HandleFunc("/card/favorite", app.FavoriteCardHandler)
 	mux.HandleFunc("/card/suggest/search", app.SuggestSearchCardHandler)
 	mux.HandleFunc("/card/suggest/suggested", app.SuggestedCardHandler)
 	mux.HandleFunc("/card/recommendations/suggested", app.SuggestedRecommendationsHandler)
