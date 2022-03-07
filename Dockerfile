@@ -7,6 +7,7 @@ COPY data/progrock.db /data/
 COPY --from=build /serve /serve/
 COPY templates/ /templates/ 
 COPY static/ /static/
+COPY config/ /config/
 EXPOSE 8080
 WORKDIR /serve
 ENV config "/config/prod.json"
