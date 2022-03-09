@@ -18,7 +18,8 @@ func (app *App) SetUpRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/", app.HomeHandler)
 	mux.HandleFunc("/about", app.AboutHandler)
 	mux.HandleFunc("/signin", app.SigninHandler)
-	mux.HandleFunc("/me", app.ProfileHandler)
+	mux.HandleFunc("/profile", app.ProfileHandler)
+	mux.HandleFunc("/me", app.RecommendationsForYouHandler)
 	mux.HandleFunc("/suggest", app.SuggestHandler)
 	mux.HandleFunc("/artists", app.ArtistHandler)
 	mux.HandleFunc("/albums", app.ArtistAlbunsHandler)
@@ -27,6 +28,7 @@ func (app *App) SetUpRoutes(mux *http.ServeMux) {
 
 	mux.HandleFunc("/card/bookmark", app.BookmarkCardHandler)
 	mux.HandleFunc("/card/favorite", app.FavoriteCardHandler)
+	mux.HandleFunc("/card/me/artist", app.RecommendationsForYouCardHandler)
 	mux.HandleFunc("/card/suggest/search", app.SuggestSearchCardHandler)
 	mux.HandleFunc("/card/suggest/suggested", app.SuggestedCardHandler)
 	mux.HandleFunc("/card/recommendations/suggested", app.SuggestedRecommendationsHandler)

@@ -1,6 +1,6 @@
 ;(async function () {
   const signInMessage = document.getElementById('signin-message')
-  const profilePageUrl = '/me'
+  const profilePageUrl = '/profile'
 
   const app = await requireApp()
   await app.accountReady()

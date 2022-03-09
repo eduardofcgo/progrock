@@ -1,0 +1,24 @@
+{{define "title"}}
+    Recommendations For Me
+{{end}}
+{{define "content"}}
+    <div id="content">
+        <div class="sectioned">
+            <section>
+                <div class="header">
+                    Custom recommendations 💡
+                    <div class="subheader">Based on your favorites, we find artists you might like</div>
+                </div>
+                <div id="recommendations" class="body">
+                    <div class="panel-message light-text">Warming up the AI...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+{{end}}
+{{define "subheader"}}{{end}}
+{{define "scripts"}}
+    <script src="/static/script/script.js"></script>
+    <script src="/static/script/ui/recommendationsForYou.js"></script>
+{{end}}
+{{template "layout" .}}

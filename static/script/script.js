@@ -1,6 +1,8 @@
-function fetchOk(url) {
-  return fetch(url).then(res => {
-    if (res.status !== 200) throw new Error('Non 200 status code', { respose: res, url })
+function fetchOk(url, options) {
+  return fetch(url, options).then(res => {
+    if (res.status !== 200) {
+      throw new Error(`${res.status} status code`)
+    }
 
     return res
   })

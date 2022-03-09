@@ -1,0 +1,14 @@
+<div class="recommendation-feedback">
+    <div class="feedback-input">
+        <span class="icon feedback-icon feedback-positive-icon"></span>
+        <span class="icon feedback-icon feedback-negative-icon"></span>
+    </div>
+    {{if not .Data.ImageId.Valid}}
+        <div class="recommendation-image image-placeholder"></div>
+    {{else}}
+        <img class="recommendation-image" src="/image?id={{.Data.ImageId.Int64}}" />
+    {{end}}
+    <div class="recommendation-label">
+        <a class="recommendation-artist-name" href="/artists?id={{.Data.Id}}">{{.Data.Name}}</a>
+    </div>
+</div>

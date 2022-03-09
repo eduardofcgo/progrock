@@ -50,6 +50,16 @@ func (app *App) ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (app *App) RecommendationsForYouHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	err := app.PageTemplates.Execute(w, "me.html", nil)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		panic(err)
+	}
+}
+
 func (app *App) SuggestHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
