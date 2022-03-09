@@ -2,7 +2,7 @@
   "address": ":8080",
   "databasePath": "../data/progrock.db",
   "signInRedirectUrl": "https://progrock.app/signin",
-  "release": "progrock@0.7",
+  "release": "progrock@0.8",
   "googleAnalytics": true,
   "sentry": true,
   "sentryDsn": "https://8130a18f581346abbc8111b126b0c4a1@o193183.ingest.sentry.io/6228509",
