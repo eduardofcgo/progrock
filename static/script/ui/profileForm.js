@@ -13,6 +13,7 @@
   const saveButton = document.getElementById('account-save')
   const signoutButton = document.getElementById('account-signout')
   const bookmarksNode = document.getElementById('bookmarks')
+  const favoritesNode = document.getElementById('favorites')
 
   const app = await requireApp()
   const user = await app.accountReady()
@@ -35,6 +36,7 @@
         .signOut()
         .then(() => {
           bookmarksNode.innerHTML = null
+          favoritesNode.innerHTML = null
 
           signedOutForm()
         })

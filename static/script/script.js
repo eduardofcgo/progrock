@@ -15,6 +15,8 @@ function forEach(fn) {
 NodeList.prototype.forEach = forEach
 HTMLCollection.prototype.forEach = forEach
 
+const sleep = timeMs => new Promise(resolve => setTimeout(resolve, timeMs))
+
 requireApp = async function () {
   const { App } = await import('/static/script/app.js')
 
