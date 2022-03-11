@@ -32,8 +32,9 @@ create table if not exists artist (
     foreign key(genre_id) references genre(id),
     foreign key(country_id) references country(id)
 );
--- TODO: create index for country id
--- TODO: create index for genre_id
+
+create index if not exists idx_artist_country_id on artist(country_id);
+create index if not exists idx_artist_genre_id on artist(genre_id);
 
 create table if not exists album (
     id int primary key,

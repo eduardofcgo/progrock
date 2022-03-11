@@ -110,7 +110,7 @@ from album_nmatches
 left join album_nreviews on album_nmatches.album_id = album_nreviews.album_id
 where
     nmatches > 0 and
-    1.0 * nmatches / nreviews > 0.4; --TODO: is this really good?
+    1.0 * nmatches / nreviews > 0.4;
 
 drop view if exists curated_album_score;
 create view curated_album_score as
@@ -225,7 +225,10 @@ insert into artist_album_similarity
     left join country on country.id = artist.country_id
     left join genre on genre.id = album.genre_id;
 
-drop index if exists idx_artist_album_similarity;
-create index idx_artist_album_similarity on artist_album_similarity(matching_artist_id, score desc);
+drop index if exists idx_artist_album_similarity_matching_artist_id_score;
+create index idx_artist_album_similarity_matching_artist_id_score on artist_album_similarity(matching_artist_id, score desc);
+
+drop index if exists idx_artist_album_similarity_artist_id;
+create index idx_artist_album_similarity_artist_id on artist_album_similarity(artist_id);
 
 vacuum;
