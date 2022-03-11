@@ -114,6 +114,11 @@ func (app *App) ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	if recommendations == nil {
+		http.NotFound(w, r)
+		return
+	}
+
 	err = app.PageTemplates.Execute(w, "artists.html", &recommendations)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -141,6 +146,11 @@ func (app *App) ArtistAlbunsHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		panic(err)
+	}
+
+	if recommendations == nil {
+		http.NotFound(w, r)
+		return
 	}
 
 	err = app.PageTemplates.Execute(w, "albums.html", &recommendations)

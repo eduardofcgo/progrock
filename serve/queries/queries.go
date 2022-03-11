@@ -31,12 +31,13 @@ func (db *Database) GetImage(imageId int) (*entities.Image, error) {
 
 func (db *Database) GetArtist(artistId int) (*entities.Artist, error) {
 	row := db.SqlDb.QueryRow(`
-	    select id, name, image_id from artist
-	    where id = (?)
+	    select artist.id, artist.name, artist.image_id, genre.name from artist
+	    left join genre on genre.id = artist.genre_id
+	    where artist.id = (?)
 	`, artistId)
 
 	var artist entities.Artist
-	err := row.Scan(&artist.Id, &artist.Name, &artist.ImageId)
+	err := row.Scan(&artist.Id, &artist.Name, &artist.ImageId, &artist.GenreName)
 
 	if err == sql.ErrNoRows {
 		return nil, nil
@@ -132,7 +133,11 @@ func (db *Database) RecommendAlbums(artistId int) (*entities.AlbumRecommendation
 	albums := []entities.Album{}
 	artist := entities.Artist{}
 
+	count := 0
+
 	for rows.Next() {
+		count += 1
+
 		var album entities.Album
 		var albumArtist entities.Artist
 
@@ -169,6 +174,10 @@ func (db *Database) RecommendAlbums(artistId int) (*entities.AlbumRecommendation
 			album.Artist = &albumArtist
 			albums = append(albums, album)
 		}
+	}
+
+	if count == 0 {
+		return nil, nil
 	}
 
 	recommendations.Artist = &artist
@@ -214,7 +223,11 @@ func (db *Database) RecommendArtists(artistId int) (*entities.ArtistRecommendati
 	artists := []entities.Artist{}
 	artist := entities.Artist{}
 
+	count := 0
+
 	for rows.Next() {
+		count += 1
+
 		var id sql.NullInt64
 		var name sql.NullString
 		var genreName sql.NullString
@@ -250,6 +263,10 @@ func (db *Database) RecommendArtists(artistId int) (*entities.ArtistRecommendati
 			artists = append(artists, recommendation)
 		}
 
+	}
+
+	if count == 0 {
+		return nil, nil
 	}
 
 	recommendations.Artist = &artist
