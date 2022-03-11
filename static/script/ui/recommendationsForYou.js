@@ -2,6 +2,7 @@
   const surpriseService = 'https://europe-west1-progrock.cloudfunctions.net/surprise'
   const optimizingMessage = `<div class="panel-message light-text">Optimizing...</div>`
   const noFavoritesMessage = `<div class="panel-message light-text">You have not added favorites to your profile</div>`
+  const unexpectedErrorMessage = `<div class="panel-message light-text">Unexpected error</div>`
   const minimumLoadingTimeMs = 1500
   const addFavoriteSleepMs = 500
 
@@ -35,6 +36,26 @@
     return topRecommendations
   }
 
+  function clusterRecommendation(recommendationCard) {
+    const genreName = recommendationCard.querySelector('.recommendation-for-you').dataset
+      .genre
+    let clusterRecommendations = recommendations.querySelector(
+      `.genre[data-genre="${genreName}"] .recommendations`
+    )
+
+    if (!clusterRecommendations) {
+      const newCluster = document.createElement('div')
+      newCluster.classList.add('genre')
+      newCluster.dataset.genre = genreName
+      newCluster.innerHTML = `<div class="header">${genreName}</div><div class="recommendations"></div>`
+
+      recommendations.appendChild(newCluster)
+      clusterRecommendations = newCluster.querySelector('.recommendations')
+    }
+
+    clusterRecommendations.appendChild(recommendationCard)
+  }
+
   function createRecommendationCard(recommendationHTML) {
     const el = document.createElement('div')
 
@@ -45,7 +66,7 @@
   }
 
   function optimize() {
-    recommendationsMessage.style.display = "none"
+    recommendationsMessage.style.display = 'none'
     recommendations.innerHTML = optimizingMessage
   }
 
@@ -87,19 +108,20 @@
     await sleep(minimumLoadingTimeMs)
 
     recommendations.innerHTML = null
-    recommendationsMessage.style.display = "block"
+    recommendationsMessage.style.display = 'block'
 
     filteredRecommendations.forEach(({ artist_id, score }) => {
       fetchRecommendationCard(artist_id).then(recommendationHTML => {
         const recommendationCard = createRecommendationCard(recommendationHTML)
 
         setUpFavorite(recommendationCard, artist_id)
-        recommendations.appendChild(recommendationCard)
+
+        clusterRecommendation(recommendationCard)
       })
     })
   }
 
-  const recommendations = document.getElementById('recommendations')
+  const recommendations = document.getElementById('recommendations-for-you')
   const recommendationsMessage = document.getElementById('recommendations-message')
 
   const app = await requireApp()
@@ -115,7 +137,7 @@
     } catch (err) {
       console.error(err)
 
-      alert('Unexpected Error')
+      recommendations.innerHTML = unexpectedErrorMessage
     }
   }
 })()

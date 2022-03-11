@@ -1,6 +1,6 @@
 ;(async function () {
   const validatedUserMessage = 'You are signed in with email'
-  const anonymousUserMessage = 'To save your data, add your email'
+  const anonymousUserMessage = 'To login or register, add your email'
   const submitFeedbackMessage = 'Confirmation email sent to your inbox'
   const submittingButton = 'Submitting...'
   const sentButton = 'Sent'

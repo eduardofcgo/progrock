@@ -16,7 +16,7 @@ class AccountManager {
   }
 
   _disableAnonymousLogin() {
-    window.localStorage.setItem('disabledAnonymousLogin', "true")
+    window.localStorage.setItem('disabledAnonymousLogin', 'true')
   }
 
   _enableAnonymousLogin() {
@@ -24,7 +24,7 @@ class AccountManager {
   }
 
   _isAnonymousLoginDisabled() {
-    return window.localStorage.getItem('disabledAnonymousLogin') === "true"
+    return window.localStorage.getItem('disabledAnonymousLogin') === 'true'
   }
 
   _persistEmail(email) {

@@ -10,7 +10,7 @@ a {
 .button,
 button,
 input[type='submit'] {
-  -webkit-border-radius:0px;
+  -webkit-border-radius: 0px;
   -webkit-appearance: none;
   border-radius: 0;
   color: white;
@@ -40,15 +40,16 @@ input:not([type='submit']) {
   background-color: #1f0021;
   color: white;
 }
-section .header {
+section > .header {
   display: inline-block;
   font-weight: bold;
+  font-size: unset;
   color: #ff9e10;
   background-color: rgba(31, 0, 33);
   border-left: 3px solid #ff9e10;
   padding: 10px;
 }
-#content > .header {
+.header {
   padding-bottom: 30px;
   color: #ff9e10;
   font-size: 18px;
@@ -541,6 +542,7 @@ form .submit-feedback-message {
   color: #ff9e10;
 }
 #recommendations,
+.recommendations,
 #bookmarks,
 #favorites {
   display: flex;
@@ -548,6 +550,10 @@ form .submit-feedback-message {
   justify-content: center;
   column-gap: 30px;
   row-gap: 30px;
+}
+.genre > .recommendations {
+  justify-content: left;
+  margin-bottom: 30px;
 }
 .recommendation {
   width: 150px;

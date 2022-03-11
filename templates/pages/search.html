@@ -11,17 +11,19 @@
                 <div class="artist" style="background-image:
                     linear-gradient(to bottom, rgba(52,0,60,0.9) 0%, rgba(52,0,60,0.95) 30%, rgba(52,0,60,0.95) 70%, rgba(52,0,60,0.9) 100%),
                     url({{$imageBaseUrl}}{{if .ImageId.Valid}}{{.ImageId.Int64}}{{else}}14355{{end}});">
-                    {{if not .ImageId.Valid}}
-                        <div class="artist-image image-placeholder"></div>
-                    {{else}}
-                        <img class="artist-image" src="{{$imageBaseUrl}}{{.ImageId.Int64}}"/>
-                    {{end}}
-                        <div class="artist-contents">
-                            <div class="artist-details">
-                            <div class="artist-name"><a href="{{$artistBaseUrl}}{{.Id}}">{{.Name}}</a></div>
-                            <div class="artist-genre">{{.GenreName}}</div>
-                            <div class="artist-country">{{.CountryName}}</div>
-                        </div>
+                    <a href="{{$artistBaseUrl}}{{.Id}}">
+                        {{if not .ImageId.Valid}}
+                            <div class="artist-image image-placeholder"></div>
+                        {{else}}
+                            <img class="artist-image" src="{{$imageBaseUrl}}{{.ImageId.Int64}}"/>
+                        {{end}}
+                    </a>
+                    <div class="artist-contents">
+                        <div class="artist-details">
+                        <div class="artist-name"><a href="{{$artistBaseUrl}}{{.Id}}">{{.Name}}</a></div>
+                        <div class="artist-genre">{{.GenreName}}</div>
+                        <div class="artist-country">{{.CountryName}}</div>
+                    </div>
                 </div>
             </div>
         </div>

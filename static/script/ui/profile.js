@@ -1,4 +1,7 @@
 ;(async function () {
+  const noBookmarksMessage = `<div class="panel-message light-text">You have not added any bookmarks</div>`
+  const noFavoritesMessage = `<div class="panel-message light-text">You have not added any favorites</div>`
+
   function fetchBookmarkCard(artistId) {
     const fetchUrl = '/card/bookmark?id=' + artistId
 
@@ -16,7 +19,9 @@
 
     const removeBookmarkNode = () => {
       setTimeout(() => {
-        node.parentNode.removeChild(node)
+        if (node.parentNode.childElementCount == 1)
+          bookmarksPanel.innerHTML = noBookmarksMessage
+        else node.parentNode.removeChild(node)
       }, 500)
     }
 
@@ -40,7 +45,9 @@
 
     const removeFavoriteNode = () => {
       setTimeout(() => {
-        node.parentNode.removeChild(node)
+        if (node.parentNode.childElementCount == 1)
+          favoritesPanel.innerHTML = noFavoritesMessage
+        else node.parentNode.removeChild(node)
       }, 500)
     }
 
@@ -97,12 +104,17 @@
 
   const bookmarksNode = document.getElementById('bookmarks')
   const favoritesNode = document.getElementById('favorites')
+  const bookmarksPanel = bookmarksNode.parentNode
+  const favoritesPanel = favoritesNode.parentNode
 
   const app = await requireApp()
   await app.accountReady()
 
   const { bookmarks, favorites } = await app.getUserSavedArtists()
 
-  populateBookmarks(bookmarks)
-  populateFavorites(favorites)
+  if (bookmarks.length) populateBookmarks(bookmarks)
+  else bookmarksPanel.innerHTML = noBookmarksMessage
+
+  if (favorites.length) populateFavorites(favorites)
+  else favoritesPanel.innerHTML = noFavoritesMessage
 })()
