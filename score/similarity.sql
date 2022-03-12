@@ -98,7 +98,7 @@ create table banned_artist (
     foreign key(artist_id) references artist(id)
 );
 insert into banned_artist (artist_id) values
-    (2633), (2634), (2635);
+    (2633), (2634), (2635), (9353);
 
 drop view if exists album_score;
 create view album_score as
@@ -108,9 +108,7 @@ select
     calculate_score(nmatches, nreviews) as score
 from album_nmatches
 left join album_nreviews on album_nmatches.album_id = album_nreviews.album_id
-where
-    nmatches > 0 and
-    1.0 * nmatches / nreviews > 0.4;
+where nmatches > 0;
 
 drop view if exists curated_album_score;
 create view curated_album_score as
